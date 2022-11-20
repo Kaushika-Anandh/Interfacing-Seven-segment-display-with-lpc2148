@@ -1,13 +1,12 @@
 # Interfacing-Seven-segment-display-with-lpc2148
 
-Name:	
-Roll no 
-Date of experiment:
+Name:	Kaushika A
+Roll no : 212221230048
+Date of experiment:20/11/22
 
 
 
-Ex. No. :
-Date: 
+Ex. No. :8
  
 
 ### Aim: To configure and display 4 character LED seven segment display and write a c code for displaying number 1 to 9 and A to F 
@@ -54,11 +53,49 @@ Sl no 	Hex code 	Output of LCD
 ## Kiel - Program 
 
 
-
+```
+#include <LPC214x.h>
+unsigned char dig[]={0x88,0xeb,0x4c,0x49,0x2b,0x19,0x18,0xcb,0x8,0x9,0xa,0x38,0x9c,0x68};
+	void delay(unsigned int count)
+	{
+		int j=0,i=0;
+		for(j=0;j<count;j++)
+		{
+			for(i=0;i<120;i++);
+		}
+	}
+	int main(void)
+	{
+		unsigned char count=0;
+		unsigned int i=0;
+		IO0DIR|=(1<<11);//Set Digit control lines as Outputs
+		IO0SET=(1<<11);
+		IO0DIR|=0x007F8000;
+		while(1)
+		{
+			count++;
+			if(count==16)count=0;
+			for(i=0;i<800;i++)//change to inc/dec speed of count
+			{
+				IO0CLR=0x007F8000;
+				IO0SET=(dig[count]<<15);
+				delay(200);
+			}
+		}}
+```
  
 
+
+##  Output screen shots :
+## Display off:
+![disoff](https://user-images.githubusercontent.com/94164580/202906145-d9aa83e6-e495-41c4-b7b2-a9a3289c95cd.png)
+## Display on:
+![1](https://user-images.githubusercontent.com/94164580/202906138-95a5f4db-5375-4dad-98ac-f94fad71a7fb.jpeg)
+![2](https://user-images.githubusercontent.com/94164580/202906142-a4900f4c-36f5-4e97-bcb4-1ab4b8b05f51.jpeg)
+![c](https://user-images.githubusercontent.com/94164580/202906144-116ea9f3-f0a0-4d40-a0a5-a64792f6bfcb.png)
+## Layout:
+![lay](https://user-images.githubusercontent.com/94164580/202906146-ea8fe7f0-ccb2-46a5-ae8d-77792978d065.png)
 
 ### Result :
 LED seven segment display is interfaced and displayed alpha numeric characters 
 
-##  Output screen shots :
